@@ -1,48 +1,15 @@
 "use strict";
 
-console.log("Teste!");
+var multiplier = {
+    numbers: [10, 100, 195],
+    multiplyBy: 3,
+    multiply: function multiply() {
+        var _this = this;
 
-var objeto = {
-    title: "Teste",
-    subtitle: "Teste 2"
+        return this.numbers.map(function (number) {
+            return number * _this.multiplyBy;
+        });
+    }
 };
 
-var template = React.createElement(
-    "div",
-    null,
-    React.createElement(
-        "h1",
-        null,
-        objeto.title
-    ),
-    React.createElement(
-        "p",
-        null,
-        objeto.subtitle
-    )
-);
-
-var username = "Teste";
-var templateTwo = React.createElement(
-    "div",
-    null,
-    React.createElement(
-        "h1",
-        null,
-        username
-    ),
-    React.createElement(
-        "p",
-        null,
-        "Idade: 30"
-    ),
-    React.createElement(
-        "p",
-        null,
-        "Cidade: Santos"
-    )
-);
-
-var appRoot = document.querySelector("#app");
-
-ReactDOM.render(template, appRoot);
+console.log(multiplier.multiply());

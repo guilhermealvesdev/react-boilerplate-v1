@@ -2,13 +2,14 @@
 
 const objeto = {
     title: "Teste",
-    subtitle: "Teste 2"
+    options: ["Um", "dois"]
 }
 
 const template = (
     <div>
         <h1>{objeto.title}</h1>
-        <p>{objeto.subtitle}</p>
+        {objeto.subtitle && <p>{objeto.subtitle}</p>}
+        <p>{objeto.options.length > 0 ? "Aqui estão suas opções:" : "Não há opções"}</p>
     </div>
 );
 
