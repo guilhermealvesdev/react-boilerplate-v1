@@ -1,27 +1,47 @@
-﻿console.log("Teste!");
-
-const objeto = {
-    title: "Teste",
-    options: ["Um", "dois"]
+﻿const app = {
+    titulo: "Teste",
+    subtitulo: "Olá",
+    opcoes: []
 }
 
-const template = (
-    <div>
-        <h1>{objeto.title}</h1>
-        {objeto.subtitle && <p>{objeto.subtitle}</p>}
-        <p>{objeto.options.length > 0 ? "Aqui estão suas opções:" : "Não há opções"}</p>
-    </div>
-);
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    
+    const option = e.target.elements.inputOpcao.value;
+    
+    if (option) {
+        app.opcoes.push(option);
+        e.target.elements.inputOpcao.value = "";
+        renderApp();
+        console.log(app.opcoes.length);
+    }
+}
 
-const username = "Teste";
-const templateTwo = (
-    <div>
-        <h1>{username}</h1>
-        <p>Idade: 30</p>
-        <p>Cidade: Santos</p>
-    </div>
-);
+const removerTodos = () => {
+    app.opcoes = [];
+    renderApp();
+}
 
-const appRoot = document.querySelector("#app");
+function renderApp() {
+    const template = (
+        <div>
+            <h1>{app.titulo}</h1>
+            {app.subtitulo && <p>{app.subtitulo}</p>}
+            <p>{app.opcoes.length > 0 ? "Aqui estão suas opções:" : "Não há opções"}</p>
+            <p>{app.opcoes.length}</p>
 
-ReactDOM.render(template, appRoot)
+            <button onClick={removerTodos}>Remover todos</button>
+    
+            <form onSubmit={onFormSubmit}>
+                <input type="text" placeholder="Input" name="inputOpcao" />
+                <button>Adicionar</button>
+            </form>
+        </div>
+    );
+
+    const appRoot = document.querySelector("#app");
+
+    ReactDOM.render(template, appRoot)
+}
+
+renderApp();
