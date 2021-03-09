@@ -1,0 +1,1 @@
+Aqui pegamos a array do opções e fazemos um MAP para retornar os itens da array com JSX.

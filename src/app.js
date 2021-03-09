@@ -1,7 +1,7 @@
 ﻿const app = {
     titulo: "Teste",
     subtitulo: "Olá",
-    opcoes: []
+    opcoes: ["opcao1", "opcao2"]
 }
 
 const onFormSubmit = (e) => {
@@ -22,6 +22,14 @@ const removerTodos = () => {
     renderApp();
 }
 
+const selecionar = () => {
+    const randomNumber = Math.floor(Math.random() * app.opcoes.length);
+
+    const options = app.opcoes[randomNumber];
+
+    console.log(options);
+}
+
 function renderApp() {
     const template = (
         <div>
@@ -30,12 +38,23 @@ function renderApp() {
             <p>{app.opcoes.length > 0 ? "Aqui estão suas opções:" : "Não há opções"}</p>
             <p>{app.opcoes.length}</p>
 
-            <button onClick={removerTodos}>Remover todos</button>
-    
+            <ol>
+                {
+                    app.opcoes.map((item) => {
+                        return <li key={item}>{item}</li>
+                    })
+                }
+            </ol>
+
+            
             <form onSubmit={onFormSubmit}>
                 <input type="text" placeholder="Input" name="inputOpcao" />
                 <button>Adicionar</button>
             </form>
+
+            <button disabled={app.opcoes.length === 0} onClick={selecionar}>O que eu devo fazer?</button>
+
+            <button onClick={removerTodos}>Remover todos</button>
         </div>
     );
 

@@ -1,0 +1,1 @@
+Aqui geramos um número aleatório que vai buscar na array do objeto uma opção.

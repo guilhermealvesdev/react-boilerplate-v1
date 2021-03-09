@@ -1,73 +1,36 @@
 "use strict";
 
-var app = {
-    titulo: "Teste",
-    subtitulo: "Olá",
-    opcoes: []
-};
+var conteudoAparecendo = true;
 
-var onFormSubmit = function onFormSubmit(e) {
-    e.preventDefault();
-
-    var option = e.target.elements.inputOpcao.value;
-
-    if (option) {
-        app.opcoes.push(option);
-        e.target.elements.inputOpcao.value = "";
-        renderApp();
-        console.log(app.opcoes.length);
-    }
-};
-
-var removerTodos = function removerTodos() {
-    app.opcoes = [];
+var mostraDetalhes = function mostraDetalhes() {
+    conteudoAparecendo = !conteudoAparecendo;
     renderApp();
 };
 
 function renderApp() {
-    var template = React.createElement(
+    var conteudo = React.createElement(
         "div",
         null,
         React.createElement(
             "h1",
             null,
-            app.titulo
-        ),
-        app.subtitulo && React.createElement(
-            "p",
-            null,
-            app.subtitulo
-        ),
-        React.createElement(
-            "p",
-            null,
-            app.opcoes.length > 0 ? "Aqui estão suas opções:" : "Não há opções"
-        ),
-        React.createElement(
-            "p",
-            null,
-            app.opcoes.length
+            "Detalhes"
         ),
         React.createElement(
             "button",
-            { onClick: removerTodos },
-            "Remover todos"
+            { onClick: mostraDetalhes },
+            conteudoAparecendo ? "Some detalhes" : "Mostra detalhes"
         ),
-        React.createElement(
-            "form",
-            { onSubmit: onFormSubmit },
-            React.createElement("input", { type: "text", placeholder: "Input", name: "inputOpcao" }),
-            React.createElement(
-                "button",
-                null,
-                "Adicionar"
-            )
+        conteudoAparecendo && React.createElement(
+            "p",
+            null,
+            "Teste de detalhes..."
         )
     );
 
     var appRoot = document.querySelector("#app");
 
-    ReactDOM.render(template, appRoot);
+    ReactDOM.render(conteudo, appRoot);
 }
 
 renderApp();

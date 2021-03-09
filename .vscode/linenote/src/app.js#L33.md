@@ -1,0 +1,1 @@
+Função que renderiza o app novamente, enquanto não aprendemos sobre useState.

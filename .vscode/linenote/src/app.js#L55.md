@@ -1,0 +1,1 @@
+O botão que chama a função de selecionar um número. Note que o disabled fica TRUE se a quantidade de itens na array for ZERO, impedindo que o usuário clique no botão se não houver opções.
