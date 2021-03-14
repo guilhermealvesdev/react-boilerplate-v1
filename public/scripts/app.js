@@ -2,6 +2,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -20,12 +22,16 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: "render",
         value: function render() {
+            var titulo = "App de indecisão";
+            var subtitulo = "Coloque sua vida nas mãos de um computador.";
+            var opcoes = ['Opcao 1', 'Opcao 2', 'Opcao 3'];
+
             return React.createElement(
                 "div",
                 null,
-                React.createElement(Header, null),
+                React.createElement(Header, { titulo: titulo, subtitulo: subtitulo }),
                 React.createElement(Action, null),
-                React.createElement(Options, null),
+                React.createElement(Options, { opcoes: opcoes }),
                 React.createElement(AddOption, null)
             );
         }
@@ -46,18 +52,23 @@ var Header = function (_React$Component2) {
     _createClass(Header, [{
         key: "render",
         value: function render() {
+            var _props = this.props,
+                titulo = _props.titulo,
+                subtitulo = _props.subtitulo;
+
+
             return React.createElement(
                 "div",
                 null,
                 React.createElement(
                     "h1",
                     null,
-                    "App de indecis\xE3o"
+                    titulo
                 ),
                 React.createElement(
                     "h2",
                     null,
-                    "Coloque sua vida nas m\xE3os de um computador."
+                    subtitulo
                 )
             );
         }
@@ -76,6 +87,11 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: "funcaoClique",
+        value: function funcaoClique() {
+            alert('Clique');
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
@@ -83,7 +99,7 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     "button",
-                    null,
+                    { onClick: this.funcaoClique },
                     "Bot\xE3o"
                 )
             );
@@ -96,22 +112,36 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options() {
+    function Options(props) {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this4.removerTudo = _this4.removerTudo.bind(_this4);
+        return _this4;
     }
 
     _createClass(Options, [{
+        key: "removerTudo",
+        value: function removerTudo() {
+            console.log(this.props.opcoes);
+        }
+    }, {
         key: "render",
         value: function render() {
+            var opcoes = [].concat(_toConsumableArray(this.props.opcoes));
+
             return React.createElement(
                 "div",
                 null,
-                "Componente das op\xE7\xF5es.",
-                React.createElement(Option, null),
-                React.createElement(Option, null),
-                React.createElement(Option, null)
+                opcoes.map(function (item) {
+                    return React.createElement(Option, { key: item, texto: item });
+                }),
+                React.createElement(
+                    "button",
+                    { onClick: this.removerTudo },
+                    "Remover todos!"
+                )
             );
         }
     }]);
@@ -131,14 +161,14 @@ var Option = function (_React$Component5) {
     _createClass(Option, [{
         key: "render",
         value: function render() {
+            var texto = this.props.texto;
+
+
             return React.createElement(
                 "div",
                 null,
-                React.createElement(
-                    "p",
-                    null,
-                    "Option."
-                )
+                "Op\xE7\xE3o: ",
+                texto
             );
         }
     }]);
@@ -156,15 +186,34 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: "adicionaOpcao",
+        value: function adicionaOpcao(e) {
+            e.preventDefault();
+
+            var value = e.target.elements.inputOpcao.value;
+
+            if (value.trim()) {
+                alert(value);
+            }
+
+            e.target.elements.inputOpcao.value = "";
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
                 "div",
                 null,
                 React.createElement(
-                    "p",
-                    null,
-                    "Formul\xE1rio."
+                    "form",
+                    { onSubmit: this.adicionaOpcao },
+                    React.createElement("input", { type: "text", name: "inputOpcao" }),
+                    React.createElement("br", null),
+                    React.createElement(
+                        "button",
+                        null,
+                        "Adicionar op\xE7\xE3o"
+                    )
                 )
             );
         }
