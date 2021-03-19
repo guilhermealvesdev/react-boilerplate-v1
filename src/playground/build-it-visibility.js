@@ -1,24 +1,27 @@
-﻿let conteudoAparecendo = true;
-
-const mostraDetalhes = () => {
-    conteudoAparecendo = !conteudoAparecendo;
-    renderApp();
+﻿class Visibility extends React.Component {
+    constructor(props) {
+        super(props);
+        this.mostraDetalhes = this.mostraDetalhes.bind(this);
+        this.state = {
+            conteudoAparecendo: false
+        };
+    }
+    mostraDetalhes() {
+        this.setState((prevState) => {
+            return {
+                conteudoAparecendo: !prevState.conteudoAparecendo
+            }
+        });
+    }
+    render() {
+        return (
+            <div>
+                <h1>Detalhes</h1>
+                <button onClick={this.mostraDetalhes}>{this.state.conteudoAparecendo ? "Some detalhes" : "Mostra detalhes"}</button>
+                {this.state.conteudoAparecendo && <p>Teste de detalhes...</p>}
+            </div>
+        )
+    }
 }
 
-function renderApp() {
-    const conteudo = (
-        <div>
-            <h1>Detalhes</h1>
-    
-            <button onClick={mostraDetalhes}>{conteudoAparecendo ? "Some detalhes" : "Mostra detalhes"}</button>
-    
-            {conteudoAparecendo && <p>Teste de detalhes...</p>}
-        </div>
-    );
-
-    const appRoot = document.querySelector("#app");
-
-    ReactDOM.render(conteudo, appRoot)
-}
-
-renderApp();
+ReactDOM.render(<Visibility />, document.querySelector('#app'));
