@@ -54,59 +54,51 @@
     }
 }
 
-class Header extends React.Component {
-    render() {
-        const {titulo, subtitulo} = this.props;
+const Header = (props) => {
+    const {titulo, subtitulo} = props;
 
-        return (
-            <div>
-                <h1>{titulo}</h1>
-                <h2>{subtitulo}</h2>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h1>{titulo}</h1>
+            <h2>{subtitulo}</h2>
+        </div>
+    );
 }
 
-class Action extends React.Component {
-    render() {
-        return (
-            <div>
-                <button
-                    onClick={this.props.pegaOpcao}
-                    disabled={!this.props.temOpcoes}
-                >
-                O que eu faço?
-                </button>
-            </div>
-        )
-    }
+const Action = (props) => {
+    return (
+        <div>
+            <button
+                onClick={props.pegaOpcao}
+                disabled={!props.temOpcoes}
+            >
+            O que eu faço?
+            </button>
+        </div>
+    )
 }
 
-class Options extends React.Component {
-    render() {
-        const opcoes = [...this.props.opcoes];
+const Options = (props) => {
+    const opcoes = [...props.opcoes];
 
-        return(
-            <div>
-                {
-                    opcoes.map((item) => <Option key={item} texto={item} /> )
-                }
-                <button onClick={this.props.removerTudo}>Remover todos!</button>
-            </div>
-        )
-    }
+    return(
+        <div>
+            {
+                opcoes.map((item) => <Option key={item} texto={item} /> )
+            }
+            <button onClick={props.removerTudo}>Remover todos!</button>
+        </div>
+    )
 }
 
-class Option extends React.Component {
-    render() {
-        const {texto} = this.props;
+const Option = (props) => {
+    const {texto} = props;
 
-        return (
-            <div>
-                Opção: {texto}
-            </div>
-        )
-    }
+    return (
+        <div>
+            Opção: {texto}
+        </div>
+    )
 }
 
 class AddOption extends React.Component {
