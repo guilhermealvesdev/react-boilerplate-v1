@@ -21,9 +21,10 @@ var IndecisionApp = function (_React$Component) {
         _this.removerTudo = _this.removerTudo.bind(_this);
         _this.pegaOpcao = _this.pegaOpcao.bind(_this);
         _this.adicionaOpcao = _this.adicionaOpcao.bind(_this);
+        _this.removeOpcao = _this.removeOpcao.bind(_this);
 
         _this.state = {
-            opcoes: []
+            opcoes: props.opcoes
         };
         return _this;
     }
@@ -38,8 +39,17 @@ var IndecisionApp = function (_React$Component) {
         key: "removerTudo",
         value: function removerTudo() {
             this.setState(function () {
+                return { opcoes: [] };
+            });
+        }
+    }, {
+        key: "removeOpcao",
+        value: function removeOpcao(opcao) {
+            this.setState(function (prevState) {
                 return {
-                    opcoes: []
+                    opcoes: prevState.opcoes.filter(function (item) {
+                        return opcao !== item;
+                    }) //Filtra pra ver se algum dos itens da array é igual ao item passado.
                 };
             });
         }
@@ -55,9 +65,7 @@ var IndecisionApp = function (_React$Component) {
             }
 
             this.setState(function (prevState) {
-                return {
-                    opcoes: [].concat(_toConsumableArray(prevState.opcoes), [opcao])
-                };
+                return { opcoes: [].concat(_toConsumableArray(prevState.opcoes), [opcao]) };
             });
         }
     }, {
@@ -76,7 +84,8 @@ var IndecisionApp = function (_React$Component) {
                 }),
                 React.createElement(Options, {
                     removerTudo: this.removerTudo,
-                    opcoes: this.state.opcoes
+                    opcoes: this.state.opcoes,
+                    removeOpcao: this.removeOpcao
                 }),
                 React.createElement(AddOption, { adicionaOpcao: this.adicionaOpcao })
             );
@@ -85,6 +94,10 @@ var IndecisionApp = function (_React$Component) {
 
     return IndecisionApp;
 }(React.Component);
+
+IndecisionApp.defaultProps = {
+    opcoes: []
+};
 
 var Header = function Header(props) {
     var titulo = props.titulo,
@@ -105,6 +118,10 @@ var Header = function Header(props) {
             subtitulo
         )
     );
+};
+
+Header.defaultProps = {
+    titulo: "Título padrão"
 };
 
 var Action = function Action(props) {
@@ -129,7 +146,7 @@ var Options = function Options(props) {
         "div",
         null,
         opcoes.map(function (item) {
-            return React.createElement(Option, { key: item, texto: item });
+            return React.createElement(Option, { key: item, texto: item, removeOpcao: props.removeOpcao });
         }),
         React.createElement(
             "button",
@@ -140,14 +157,22 @@ var Options = function Options(props) {
 };
 
 var Option = function Option(props) {
-    var texto = props.texto;
+    var texto = props.texto,
+        removeOpcao = props.removeOpcao;
 
 
     return React.createElement(
         "div",
         null,
         "Op\xE7\xE3o: ",
-        texto
+        texto,
+        React.createElement(
+            "button",
+            { onClick: function onClick(e) {
+                    removeOpcao(texto);
+                } },
+            "Remover"
+        )
     );
 };
 
@@ -176,9 +201,7 @@ var AddOption = function (_React$Component2) {
             var erro = this.props.adicionaOpcao(value);
 
             this.setState(function () {
-                return {
-                    erro: erro
-                };
+                return { erro: erro };
             });
 
             e.target.elements.inputOpcao.value = "";

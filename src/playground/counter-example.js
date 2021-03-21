@@ -5,7 +5,7 @@
         this.remove = this.remove.bind(this);
         this.reseta = this.reseta.bind(this);
         this.state = {
-            count: 0
+            count: props.count
         };
     }
     adiciona() {
@@ -25,7 +25,7 @@
     reseta() {
         this.setState(() => {
             return {
-                count: 0
+                count: this.props.count
             }
         })
     }
@@ -41,7 +41,11 @@
     }
 }
 
-ReactDOM.render(<Counter />, document.querySelector('#app'));
+Counter.defaultProps = {
+    count: 0
+}
+
+ReactDOM.render(<Counter count={3} />, document.querySelector('#app'));
 
 
 

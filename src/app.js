@@ -4,9 +4,10 @@
         this.removerTudo = this.removerTudo.bind(this);
         this.pegaOpcao = this.pegaOpcao.bind(this);
         this.adicionaOpcao = this.adicionaOpcao.bind(this);
+        this.removeOpcao = this.removeOpcao.bind(this);
 
         this.state = {
-            opcoes : []
+            opcoes : props.opcoes
         }
     }
     pegaOpcao() {
@@ -14,11 +15,12 @@
         console.log(this.state.opcoes[randomNumber]);
     }
     removerTudo() {
-        this.setState(() => {
-            return {
-                opcoes: []
-            };
-        });
+        this.setState(() => ({opcoes:[]}))
+    }
+    removeOpcao(opcao) {        
+        this.setState((prevState) => ({
+            opcoes: prevState.opcoes.filter((item) => opcao !== item) //Filtra pra ver se algum dos itens da array é igual ao item passado.
+        }));
     }
     adicionaOpcao(opcao) {
         if(!opcao) { // Se o valor não for uma string vazia...
@@ -27,11 +29,7 @@
             return "Essa opção já existe."
         }
 
-        this.setState((prevState) => {
-            return {
-                opcoes: [...prevState.opcoes, opcao]
-            }
-        })
+        this.setState((prevState) => ({opcoes: [...prevState.opcoes, opcao]}))
     }
     render() {
         const titulo = "App de indecisão";
@@ -47,11 +45,16 @@
                 <Options
                     removerTudo={this.removerTudo}
                     opcoes={this.state.opcoes}
+                    removeOpcao={this.removeOpcao}
                 />
                 <AddOption adicionaOpcao={this.adicionaOpcao} />
             </div>
         )
     }
+}
+
+IndecisionApp.defaultProps = {
+    opcoes: []
 }
 
 const Header = (props) => {
@@ -63,6 +66,10 @@ const Header = (props) => {
             <h2>{subtitulo}</h2>
         </div>
     );
+}
+
+Header.defaultProps = {
+    titulo: "Título padrão"
 }
 
 const Action = (props) => {
@@ -84,7 +91,9 @@ const Options = (props) => {
     return(
         <div>
             {
-                opcoes.map((item) => <Option key={item} texto={item} /> )
+                opcoes.map((item) => (
+                    <Option key={item} texto={item} removeOpcao={props.removeOpcao} />
+                ))
             }
             <button onClick={props.removerTudo}>Remover todos!</button>
         </div>
@@ -92,11 +101,16 @@ const Options = (props) => {
 }
 
 const Option = (props) => {
-    const {texto} = props;
+    const {texto, removeOpcao} = props;
 
     return (
         <div>
             Opção: {texto}
+            <button onClick={
+                (e) => {
+                  removeOpcao(texto);
+                }
+            }>Remover</button>
         </div>
     )
 }
@@ -116,11 +130,7 @@ class AddOption extends React.Component {
 
         const erro = this.props.adicionaOpcao(value);
 
-        this.setState(() => {
-            return {
-                erro: erro
-            }
-        })
+        this.setState(() => ({erro: erro}));
 
         e.target.elements.inputOpcao.value = "";
     }
