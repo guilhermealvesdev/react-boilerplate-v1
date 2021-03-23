@@ -7,7 +7,29 @@
         this.removeOpcao = this.removeOpcao.bind(this);
 
         this.state = {
-            opcoes : props.opcoes
+            opcoes : []
+        }
+    }
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('opcoes');
+            const opcoes = JSON.parse(json);
+
+            if (opcoes) { // Se houver opções...
+                this.setState(() => {
+                    return {
+                        opcoes: opcoes
+                    }
+                });
+            }
+        } catch (e) {
+            //Não fazer nada, deixar o React buscar os props padrões
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.opcoes.length !== this.state.opcoes.length) {
+            const json = JSON.stringify(this.state.opcoes);
+            localStorage.setItem('opcoes', json);
         }
     }
     pegaOpcao() {
@@ -53,10 +75,6 @@
     }
 }
 
-IndecisionApp.defaultProps = {
-    opcoes: []
-}
-
 const Header = (props) => {
     const {titulo, subtitulo} = props;
 
@@ -90,6 +108,7 @@ const Options = (props) => {
 
     return(
         <div>
+            {props.opcoes.length === 0 && <p>Ainda sem opções!</p>}
             {
                 opcoes.map((item) => (
                     <Option key={item} texto={item} removeOpcao={props.removeOpcao} />
@@ -132,7 +151,9 @@ class AddOption extends React.Component {
 
         this.setState(() => ({erro: erro}));
 
-        e.target.elements.inputOpcao.value = "";
+        if(!erro) {
+            e.target.elements.inputOpcao.value = "";
+        }
     }
 
     render() {

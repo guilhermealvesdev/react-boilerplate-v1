@@ -8,6 +8,27 @@
             count: props.count
         };
     }
+    componentDidMount() {
+        try {
+            const stringNumero = localStorage.getItem("numero");
+            const numero = parseInt(stringNumero, 10);
+
+            if (!isNaN(numero)) { //se o isNaN retornar false (isto é, se for um NUMBER)
+                this.setState(() => {
+                    return {
+                        count: numero
+                    }
+                })
+            }
+        } catch (e) {
+
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.count !== this.state.count) {
+            localStorage.setItem("numero", this.state.count);
+        }
+    }
     adiciona() {
         this.setState((prevState) => {
             return {
