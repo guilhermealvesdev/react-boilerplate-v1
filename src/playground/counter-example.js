@@ -10,6 +10,7 @@
     }
     componentDidMount() {
         try {
+            console.log('aaaaaaaaaa');
             const stringNumero = localStorage.getItem("numero");
             const numero = parseInt(stringNumero, 10);
 
