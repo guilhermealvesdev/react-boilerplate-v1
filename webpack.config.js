@@ -15,5 +15,8 @@ module.exports = {
             exclude: /node_modules/
         }]
     },
-    devtool: 'cheap-module-eval-source-map' //Source map pros arquivos JS
+    devtool: 'cheap-module-eval-source-map', //Source map pros arquivos JS
+    devServer: {
+        contentBase: PATH.join(__dirname, 'public/')
+    }
 };

@@ -12,7 +12,7 @@ const Header = (props) => {
 }
 
 Header.defaultProps = {
-    titulo: "TESTEAAAA"
+    titulo: "Teste"
 }
 
 export default Header;
