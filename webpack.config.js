@@ -5,8 +5,8 @@
 module.exports = {
     entry: './src/app.js',
     output: {
-        path: PATH.join(__dirname, 'public/'),
-        filename:'bundle.js'
+        path: PATH.join(__dirname, 'public'),
+        filename: 'bundle.js'
     },
     module: {
         rules: [{
@@ -15,8 +15,8 @@ module.exports = {
             exclude: /node_modules/
         }]
     },
-    devtool: 'cheap-module-eval-source-map', //Source map pros arquivos JS
+    devtool: 'eval-cheap-module-source-map',
     devServer: {
-        contentBase: PATH.join(__dirname, 'public/')
+        contentBase: PATH.join(__dirname, 'public')
     }
 };
