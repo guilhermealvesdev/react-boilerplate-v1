@@ -6,17 +6,32 @@ import Header from './Header';
 import Options from './Options';
 
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.removerTudo = this.removerTudo.bind(this);
-        this.pegaOpcao = this.pegaOpcao.bind(this);
-        this.adicionaOpcao = this.adicionaOpcao.bind(this);
-        this.removeOpcao = this.removeOpcao.bind(this);
-
-        this.state = {
-            opcoes : []
-        }
+    state = {
+        opcoes: []
     }
+
+    pegaOpcao = () => {
+        const randomNumber = Math.floor(Math.random() * this.state.opcoes.length);
+        console.log(this.state.opcoes[randomNumber]);
+    }
+    removerTudo = () => {
+        this.setState(() => ({opcoes:[]}))
+    }
+    removeOpcao = (opcao) => {        
+        this.setState((prevState) => ({
+            opcoes: prevState.opcoes.filter((item) => opcao !== item) //Filtra pra ver se algum dos itens da array é igual ao item passado.
+        }));
+    }
+    adicionaOpcao = (opcao) => {
+        if(!opcao) { // Se o valor não for uma string vazia...
+            return "Coloque um valor certo";
+        } else if (this.state.opcoes.indexOf(opcao) > -1) { // Se o valor já existe...
+            return "Essa opção já existe."
+        }
+
+        this.setState((prevState) => ({opcoes: [...prevState.opcoes, opcao]}))
+    }
+
     componentDidMount() {
         try {
             const json = localStorage.getItem('opcoes');
@@ -39,27 +54,7 @@ export default class IndecisionApp extends React.Component {
             localStorage.setItem('opcoes', json);
         }
     }
-    pegaOpcao() {
-        const randomNumber = Math.floor(Math.random() * this.state.opcoes.length);
-        console.log(this.state.opcoes[randomNumber]);
-    }
-    removerTudo() {
-        this.setState(() => ({opcoes:[]}))
-    }
-    removeOpcao(opcao) {        
-        this.setState((prevState) => ({
-            opcoes: prevState.opcoes.filter((item) => opcao !== item) //Filtra pra ver se algum dos itens da array é igual ao item passado.
-        }));
-    }
-    adicionaOpcao(opcao) {
-        if(!opcao) { // Se o valor não for uma string vazia...
-            return "Coloque um valor certo";
-        } else if (this.state.opcoes.indexOf(opcao) > -1) { // Se o valor já existe...
-            return "Essa opção já existe."
-        }
 
-        this.setState((prevState) => ({opcoes: [...prevState.opcoes, opcao]}))
-    }
     render() {
         const subtitulo = "Coloque sua vida nas mãos de um computador."
 
