@@ -4,15 +4,26 @@ import AddOption from './AddOption'
 import Action from './Action';
 import Header from './Header';
 import Options from './Options';
+import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
     state = {
-        opcoes: []
+        opcoes: [],
+        opcaoSelecionada: undefined
     }
 
     pegaOpcao = () => {
         const randomNumber = Math.floor(Math.random() * this.state.opcoes.length);
-        console.log(this.state.opcoes[randomNumber]);
+        const opcao = this.state.opcoes[randomNumber];
+
+        this.setState(() => ({
+            opcaoSelecionada: opcao
+        }));
+    }
+    limpaOpcao = () => {
+        this.setState(() => ({
+            opcaoSelecionada: undefined
+        }));
     }
     removerTudo = () => {
         this.setState(() => ({opcoes:[]}))
@@ -71,6 +82,10 @@ export default class IndecisionApp extends React.Component {
                     removeOpcao={this.removeOpcao}
                 />
                 <AddOption adicionaOpcao={this.adicionaOpcao} />
+                <OptionModal
+                    opcaoSelecionada={this.state.opcaoSelecionada}
+                    limpaOpcao = {this.limpaOpcao}
+                />
             </div>
         )
     }
