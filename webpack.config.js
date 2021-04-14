@@ -11,10 +11,17 @@ module.exports = {
       loader: 'babel-loader',
       test: /\.js$/,
       exclude: /node_modules/
+    }, {
+      test: /\.scss$/,
+      use: [ // Array que permite usar uma array de loaders
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
     }]
   },
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public')
-  }
+  },
 };
