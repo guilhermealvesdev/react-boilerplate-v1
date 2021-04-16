@@ -1,5 +1,2 @@
-﻿$color-primary: #273fad;
-
-* {
-    color:$color-primary;
-}
+﻿@import './base/base'; // Não precisa usar o underline e nem a extensão. Pode, se preferir.
+@import './components/header';

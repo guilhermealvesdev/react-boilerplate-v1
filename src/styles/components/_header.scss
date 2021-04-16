@@ -1,0 +1,18 @@
+﻿.header {
+    background:hsl(229, 15%, 15%);
+    color:hsl(0, 0%, 100%);
+    margin-bottom:4.8rem;
+    padding: 1.6rem 0;
+
+    &__title {
+        font-size:3.2rem;
+        margin:0;
+    }
+
+    &__subtitle {
+        color:hsl(228, 38%, 75%);
+        font-size:1.6rem;
+        font-weight:500;
+        margin:0;
+    }
+}

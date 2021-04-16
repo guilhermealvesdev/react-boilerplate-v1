@@ -12,7 +12,7 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/
     }, {
-      test: /\.scss$/,
+      test: /\.s?css$/, //Procura por arquivos que sejam CSS, começando com "s" ou não.
       use: [ // Array que permite usar uma array de loaders
         'style-loader',
         'css-loader',
