@@ -3,9 +3,9 @@
 const Option = (props) => (
     <div>
         Opção: {props.texto}
-        <button onClick={
+        <button className="button button--link" onClick={
             (e) => {
-                removeOpcao(props.texto);
+                props.removeOpcao(props.texto);
             }
         }>Remover</button>
     </div>

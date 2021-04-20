@@ -9,7 +9,7 @@ const Options = (props) => (
                 <Option key={item} texto={item} removeOpcao={props.removeOpcao} />
             ))
         }
-        <button onClick={props.removerTudo}>Remover todos!</button>
+        <button className="button button--link" onClick={props.removerTudo}>Remover todos!</button>
     </div>
 )
 

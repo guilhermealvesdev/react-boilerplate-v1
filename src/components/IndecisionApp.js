@@ -28,7 +28,7 @@ export default class IndecisionApp extends React.Component {
     removerTudo = () => {
         this.setState(() => ({opcoes:[]}))
     }
-    removeOpcao = (opcao) => {        
+    removeOpcao = (opcao) => {
         this.setState((prevState) => ({
             opcoes: prevState.opcoes.filter((item) => opcao !== item) //Filtra pra ver se algum dos itens da array é igual ao item passado.
         }));
@@ -72,20 +72,22 @@ export default class IndecisionApp extends React.Component {
         return (
             <div>
                 <Header subtitulo={subtitulo} />
-                <Action
-                    pegaOpcao = {this.pegaOpcao}
-                    temOpcoes={this.state.opcoes.length > 0}
-                />
-                <Options
-                    removerTudo={this.removerTudo}
-                    opcoes={this.state.opcoes}
-                    removeOpcao={this.removeOpcao}
-                />
-                <AddOption adicionaOpcao={this.adicionaOpcao} />
-                <OptionModal
-                    opcaoSelecionada={this.state.opcaoSelecionada}
-                    limpaOpcao = {this.limpaOpcao}
-                />
+                <div className="container">
+                    <Action
+                        pegaOpcao = {this.pegaOpcao}
+                        temOpcoes={this.state.opcoes.length > 0}
+                    />
+                    <Options
+                        removerTudo={this.removerTudo}
+                        opcoes={this.state.opcoes}
+                        removeOpcao={this.removeOpcao}
+                    />
+                    <AddOption adicionaOpcao={this.adicionaOpcao} />
+                    <OptionModal
+                        opcaoSelecionada={this.state.opcaoSelecionada}
+                        limpaOpcao = {this.limpaOpcao}
+                    />
+                </div>
             </div>
         )
     }

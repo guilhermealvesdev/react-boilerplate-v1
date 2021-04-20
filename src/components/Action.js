@@ -3,6 +3,7 @@
 const Action = (props) => (
     <div>
         <button
+            className="button big-button"
             onClick={props.pegaOpcao}
             disabled={!props.temOpcoes}
         >
