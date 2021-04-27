@@ -77,12 +77,14 @@ export default class IndecisionApp extends React.Component {
                         pegaOpcao = {this.pegaOpcao}
                         temOpcoes={this.state.opcoes.length > 0}
                     />
-                    <Options
-                        removerTudo={this.removerTudo}
-                        opcoes={this.state.opcoes}
-                        removeOpcao={this.removeOpcao}
-                    />
-                    <AddOption adicionaOpcao={this.adicionaOpcao} />
+                    <div className="widget">
+                        <Options
+                            removerTudo={this.removerTudo}
+                            opcoes={this.state.opcoes}
+                            removeOpcao={this.removeOpcao}
+                        />
+                        <AddOption adicionaOpcao={this.adicionaOpcao} />
+                    </div>
                     <OptionModal
                         opcaoSelecionada={this.state.opcaoSelecionada}
                         limpaOpcao = {this.limpaOpcao}

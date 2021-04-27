@@ -2,8 +2,12 @@
     border-bottom-width:.6rem;
     font-size:$l-size;
     width:100%;
-    margin-bottom:$xl-size;
+    margin-bottom:$l-size;
     padding:2.4rem;
+
+    @media (min-width:$desktop-breakpoint) {
+        margin-bottom:$xl-size;
+    }
 
     &:disabled {
         opacity:.7;

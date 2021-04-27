@@ -1,8 +1,12 @@
 ﻿.header {
     background:$color-primary;
     color:hsl(0, 0%, 100%);
-    margin-bottom:$l-size;
+    margin-bottom:$m-size;
     padding: $m-size 0;
+
+    @media (min-width:$desktop-breakpoint) {
+        margin-bottom:$l-size;
+    }
 
     &__title {
         font-size:$l-size;
